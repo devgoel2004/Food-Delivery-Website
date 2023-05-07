@@ -34,7 +34,7 @@ const Home = () => {
         <div>
           <div
             id="carouselExampleControls"
-            className="carousel slide carousal-fade"
+            className="carousel slide carousal-fade "
             data-bs-ride="carousel">
             <div className="carousel-inner">
               <div className="carousel-caption" style={{ zIndex: "10" }}>
@@ -54,7 +54,7 @@ const Home = () => {
               <div className="carousel-item active">
                 <img
                   src="../images/burger.jpg"
-                  className="d-block w-100"
+                  className="d-block w-100 "
                   alt="..."
                 />
               </div>
@@ -118,6 +118,7 @@ const Home = () => {
                           key={filterItems._id}
                           className="col-12 col-md-6 col-lg-3">
                           <Card
+                            className="card-container"
                             foodName={filterItems.name}
                             options={filterItems.options[0]}
                             imgSrc={filterItems.img}

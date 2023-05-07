@@ -1,9 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  };
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-grey text-white">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light text-white">
         <div className="container-fluid">
           <Link className="navbar-brand fs-1" to="/">
             <img className="icon" src="../images/download.png"></img> The
@@ -29,22 +35,44 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              {(localStorage.getItem(`authToken`))}
+              {localStorage.getItem(`authToken`) ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-Link active fs-5"
+                    aria-current="page"
+                    to="/">
+                    My Orders
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
-            <div className="d-flex">
-              <Link
-                className="nav-Link active btn mx-1 "
-                aria-current="page"
-                to="/login">
-                Login
-              </Link>
-              <Link
-                className="nav-Link active btn mx-1"
-                aria-current="page"
-                to="/createuser">
-                SignUp
-              </Link>
-            </div>
+            {!localStorage.getItem(`authToken`) ? (
+              <div className="d-flex">
+                <Link
+                  className="nav-Link active btn mx-1 "
+                  aria-current="page"
+                  to="/login">
+                  Login
+                </Link>
+                <Link
+                  className="nav-Link active btn mx-1"
+                  aria-current="page"
+                  to="/createuser">
+                  SignUp
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <div className="btn bg-white text-success mx-2">My Cart</div>
+                <div
+                  className="btn text-light bg-danger mx-2"
+                  onClick={handleLogout}>
+                  Logout
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>
